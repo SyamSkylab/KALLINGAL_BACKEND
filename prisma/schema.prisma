@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Todo {
+  id         Int       @id @default(autoincrement())
+  task       String
+  user_id    Int
+  created_at DateTime? @default(now())
+  task_date  DateTime
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String
+  mobile_no  String
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([mobile_no])
+}
+
+model Product {
+  id         Int       @id @default(autoincrement())
+  name       String
+  size       String
+  price      Int
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
+model Booking {
+  id          Int            @id @default(autoincrement())
+  name        String
+  mobile_no   String
+  address     String
+  quantity    Json
+  total_price Int
+  status      booking_status
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @updatedAt
+}
+
+enum booking_status {
+  BOOKED
+  CANCEL
+  PAYMENT_SUCCESSFULL
+  SHIPPED
+}
