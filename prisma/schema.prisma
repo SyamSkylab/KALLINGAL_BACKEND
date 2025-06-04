@@ -53,6 +53,16 @@ model Booking {
   updated_at  DateTime       @updatedAt
 }
 
+model Payment {
+  id         Int      @id @default(autoincrement())
+  order_id   String
+  payment_id String
+  status     String
+  email      String
+  contact    String
+  created_at DateTime @default(now())
+}
+
 enum booking_status {
   BOOKED
   CANCEL
